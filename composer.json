@@ -1,0 +1,18 @@
+{
+    "name": "danharper/stem",
+    "description": "Seed your fixtures",
+    "authors": [
+        {
+            "name": "Dan Harper",
+            "email": "intouch@danharper.me"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+    },
+    "autoload": {
+        "psr-0": {
+            "danharper\\Stem": "src/"
+        }
+    }
+}
