@@ -39,6 +39,23 @@ class StemTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('abc293', s::run(':foo'));
 	}
 
+	public function testMake()
+	{
+		$input = array(
+			'id' => ':int',
+			'title' => ':string',
+			'created' => 'xjsijr'
+		);
+
+		s::fixture('TestFixtureClass', $input);
+		$x = s::make('TestFixtureClass');
+
+		foreach (array_keys($input) as $key)
+		{
+			$this->assertTrue(property_exists($x, $key));
+		}
+	}
+
 	public function testRunNormal()
 	{
 		$this->assertEquals('string', s::run('string'));

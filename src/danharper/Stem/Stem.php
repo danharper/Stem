@@ -55,6 +55,11 @@ class Stem {
 		return $r;
 	}
 
+	public static function make($fixtureName)
+	{
+		return new $fixtureName(self::attributes($fixtureName));
+	}
+
 	public static function run($type)
 	{
 		if (preg_match('/:/', $type))
