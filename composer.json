@@ -10,6 +10,8 @@
     "minimum-stability": "dev",
     "require": {
     },
+    "require-dev": {
+    },
     "autoload": {
         "psr-0": {
             "danharper\\Stem": "src/"

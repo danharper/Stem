@@ -2,8 +2,8 @@
 
 class Stem {
 
-	protected static $fixtures = array();
-	protected static $handlers = array();
+	protected $fixtures = array();
+	protected $handlers = array();
 
 	public function __construct()
 	{
@@ -17,50 +17,50 @@ class Stem {
 
 		foreach ($registers as $class => $type)
 		{
-			self::register($class, $type);
+			$this->register($class, $type);
 		}
 	}
 
-	public static function register($className, $type)
+	public function register($className, $type)
 	{
 		if (is_array($type))
 		{
 			foreach ($type as $t)
 			{
-				self::register($className, $t);
+				$this->register($className, $t);
 			}
 		}
 		else
 		{
-			static::$handlers[$type] = $className;
+			$this->handlers[$type] = $className;
 		}
 	}
 
-	public static function fixture($fixtureName, array $attributes)
+	public function fixture($fixtureName, array $attributes)
 	{
-		self::$fixtures[$fixtureName] = $attributes;
+		$this->fixtures[$fixtureName] = $attributes;
 	}
 
-	public static function attributes($fixtureName)
+	public function attributes($fixtureName)
 	{
-		$attributes = self::$fixtures[$fixtureName];
+		$attributes = $this->fixtures[$fixtureName];
 
 		$r = array();
 
 		foreach ($attributes as $attribute => $type)
 		{
-			$r[$attribute] = static::run($type);
+			$r[$attribute] = $this->run($type);
 		}
 
 		return $r;
 	}
 
-	public static function make($fixtureName)
+	public function make($fixtureName)
 	{
-		return new $fixtureName(self::attributes($fixtureName));
+		return new $fixtureName($this->attributes($fixtureName));
 	}
 
-	public static function run($type)
+	public function run($type)
 	{
 		if (preg_match('/:/', $type))
 		{
@@ -74,12 +74,12 @@ class Stem {
 
 		if ( ! $modifier) $modifier = null;
 
-		if ( ! array_key_exists($type, self::$handlers))
+		if ( ! array_key_exists($type, $this->handlers))
 		{
 			throw new InvalidHandlerException("$type is not a valid handler");
 		}
 
-		$handlerName = self::$handlers[$type];
+		$handlerName = $this->handlers[$type];
 
 		if (is_object($handlerName))
 		{

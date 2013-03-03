@@ -1,6 +1,6 @@
 <?php
 
-use \danharper\Stem\Stem as s;
+use \danharper\Stem\Stem;
 
 class TestFixtureClass {
 	public function __construct($data)
@@ -11,9 +11,26 @@ class TestFixtureClass {
 
 class StemTest extends PHPUnit_Framework_TestCase {
 
+	public function setUp()
+	{
+		$this->s = new Stem;
+	}
+
 	public function testStart()
 	{
-		$this->assertInstanceOf('\danharper\Stem\Stem', new s);
+		$this->assertInstanceOf('\danharper\Stem\Stem', $this->s);
+	}
+
+	public function testFacade()
+	{
+		$input = array(
+			'id' => ':int',
+		);
+
+		\danharper\Stem\Facades\Native\Stem::fixture('Job', $input);
+		$output = \danharper\Stem\Facades\Native\Stem::attributes('Job');
+
+		$this->assertEquals(array_keys($input), array_keys($output));
 	}
 
 	public function testAttributesA()
@@ -24,19 +41,19 @@ class StemTest extends PHPUnit_Framework_TestCase {
 			'created' => 'xjsijr'
 		);
 
-		s::fixture('Job', $input);
-		$x = s::attributes('Job');
+		$this->s->fixture('Job', $input);
+		$output = $this->s->attributes('Job');
 
-		$this->assertEquals(array_keys($input), array_keys($x));
+		$this->assertEquals(array_keys($input), array_keys($output));
 	}
 
 	public function testRegisterClosure()
 	{
-		s::register(function($input) {
+		$this->s->register(function($input) {
 			return 'abc293';
 		}, 'foo');
 
-		$this->assertEquals('abc293', s::run(':foo'));
+		$this->assertEquals('abc293', $this->s->run(':foo'));
 	}
 
 	public function testMake()
@@ -47,8 +64,8 @@ class StemTest extends PHPUnit_Framework_TestCase {
 			'created' => 'xjsijr'
 		);
 
-		s::fixture('TestFixtureClass', $input);
-		$x = s::make('TestFixtureClass');
+		$this->s->fixture('TestFixtureClass', $input);
+		$x = $this->s->make('TestFixtureClass');
 
 		foreach (array_keys($input) as $key)
 		{
@@ -58,22 +75,22 @@ class StemTest extends PHPUnit_Framework_TestCase {
 
 	public function testRunNormal()
 	{
-		$this->assertEquals('string', s::run('string'));
+		$this->assertEquals('string', $this->s->run('string'));
 	}
 
 	public function testRunInt()
 	{
-		$this->assertInternalType('int', s::run(':int'));
+		$this->assertInternalType('int', $this->s->run(':int'));
 	}
 
 	public function testRunIntCustomMax()
 	{
-		$this->assertLessThanOrEqual(2, s::run('2:int'));
+		$this->assertLessThanOrEqual(2, $this->s->run('2:int'));
 	}
 
 	public function testRunDigit()
 	{
-		$made = s::run(':digit');
+		$made = $this->s->run(':digit');
 		$this->assertInternalType('int', $made);
 		$this->assertLessThanOrEqual(9, $made);
 		$this->assertGreaterThanOrEqual(0, $made);
@@ -81,7 +98,7 @@ class StemTest extends PHPUnit_Framework_TestCase {
 
 	public function testString()
 	{
-		$made = s::run(':string');
+		$made = $this->s->run(':string');
 		$count = count(explode(' ', $made));
 		$this->assertInternalType('string', $made);
 		$this->assertGreaterThanOrEqual(2, $count);
@@ -90,14 +107,14 @@ class StemTest extends PHPUnit_Framework_TestCase {
 
 	public function testWord()
 	{
-		$made = s::run(':word');
+		$made = $this->s->run(':word');
 		$this->assertInternalType('string', $made);
 		$this->assertCount(1, explode(' ', $made));
 	}
 
 	public function testWords()
 	{
-		$made = s::run('9:words');
+		$made = $this->s->run('9:words');
 		$this->assertInternalType('string', $made);
 		$this->assertCount(9, explode(' ', $made));
 	}
