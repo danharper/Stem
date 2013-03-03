@@ -1,4 +1,4 @@
-<?php namespace danharper\Stem\Type;
+<?php namespace danharper\Stem\Handlers;
 
 class Number
 {

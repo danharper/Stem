@@ -8,11 +8,11 @@ class Stem {
 	public function __construct()
 	{
 		$registers = array(
-			'danharper\Stem\Type\Number' => array('int', 'number'),
-			'danharper\Stem\Type\Digit' => 'digit',
-			'danharper\Stem\Type\String' => array('string', 'words'),
-			'danharper\Stem\Type\Word' => 'word',
-			'danharper\Stem\Type\Say' => 'say',
+			'danharper\Stem\Handlers\Number' => array('int', 'number'),
+			'danharper\Stem\Handlers\Digit' => 'digit',
+			'danharper\Stem\Handlers\String' => array('string', 'words'),
+			'danharper\Stem\Handlers\Word' => 'word',
+			'danharper\Stem\Handlers\Say' => 'say',
 		);
 
 		foreach ($registers as $class => $type)
