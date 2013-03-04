@@ -107,7 +107,7 @@ class StemTest extends PHPUnit_Framework_TestCase {
 
 	public function testRunNormal()
 	{
-		$this->assertEquals('string', $this->s->run('string'));
+		$this->assertEquals('fizzbuzz', $this->s->run('fizzbuzz'));
 	}
 
 	/**
