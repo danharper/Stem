@@ -49,37 +49,6 @@ class StemTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('abc293', $this->s->run(':bar'));
 	}
 
-	public function testAttributes()
-	{
-		$input = array(
-			'id' => ':int',
-			'title' => ':string',
-			'created' => 'xjsijr'
-		);
-
-		$this->s->fixture('Job', $input);
-		$output = $this->s->attributes('Job');
-
-		$this->assertEquals(array_keys($input), array_keys($output));
-	}
-
-	public function testMake()
-	{
-		$input = array(
-			'id' => ':int',
-			'title' => ':string',
-			'created' => 'xjsijr'
-		);
-
-		$this->s->fixture('FixtureStub', $input);
-		$x = $this->s->make('FixtureStub');
-
-		foreach (array_keys($input) as $key)
-		{
-			$this->assertTrue(property_exists($x, $key));
-		}
-	}
-
 	public function testRunNormal()
 	{
 		$this->assertEquals('fizzbuzz', $this->s->run('fizzbuzz'));
@@ -135,6 +104,37 @@ class StemTest extends PHPUnit_Framework_TestCase {
 	}
 
 	// public function testRegisterThrowsWhenEmptyArray()
+
+	public function testAttributes()
+	{
+		$input = array(
+			'id' => ':int',
+			'title' => ':string',
+			'created' => 'xjsijr'
+		);
+
+		$this->s->fixture('Job', $input);
+		$output = $this->s->attributes('Job');
+
+		$this->assertEquals(array_keys($input), array_keys($output));
+	}
+
+	public function testMake()
+	{
+		$input = array(
+			'id' => ':int',
+			'title' => ':string',
+			'created' => 'xjsijr'
+		);
+
+		$this->s->fixture('FixtureStub', $input);
+		$x = $this->s->make('FixtureStub');
+
+		foreach (array_keys($input) as $key)
+		{
+			$this->assertTrue(property_exists($x, $key));
+		}
+	}
 
 }
 

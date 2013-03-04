@@ -46,21 +46,6 @@ class Stem {
 		$this->fixtures[$fixtureName] = $attributes;
 	}
 
-	public function attributes($fixtureName)
-	{
-		$fixtureAttributes = $this->fixtures[$fixtureName];
-		$stem = $this;
-
-		return array_map(function($type) use ($stem) {
-			return $stem->run($type);
-		}, $fixtureAttributes);
-	}
-
-	public function make($fixtureName)
-	{
-		return new $fixtureName($this->attributes($fixtureName));
-	}
-
 	public function run($type)
 	{
 		if (preg_match('/:/', $type))
@@ -88,6 +73,21 @@ class Stem {
 		}
 
 		return $handler->run($modifier);
+	}
+
+	public function attributes($fixtureName)
+	{
+		$fixtureAttributes = $this->fixtures[$fixtureName];
+		$stem = $this;
+
+		return array_map(function($type) use ($stem) {
+			return $stem->run($type);
+		}, $fixtureAttributes);
+	}
+
+	public function make($fixtureName)
+	{
+		return new $fixtureName($this->attributes($fixtureName));
 	}
 
 }
