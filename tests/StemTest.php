@@ -79,14 +79,14 @@ class StemTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($object, $handlers['foo']);
 	}
 
-	// public function testRegisterClosure()
-	// {
-	// 	$this->s->register(function($input) {
-	// 		return 'abc293';
-	// 	}, 'foo');
+	public function testRegisterClosure()
+	{
+		$this->s->register(function() {
+			return 'abc293';
+		}, 'foo');
 
-	// 	$this->assertEquals('abc293', $this->s->run(':foo'));
-	// }
+		$this->assertEquals('abc293', $this->s->run(':foo'));
+	}
 
 	public function testMake()
 	{

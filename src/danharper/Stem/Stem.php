@@ -13,9 +13,12 @@ class Stem {
 		}
 	}
 
-	public function register($object)
+	public function register($object, $keys = null)
 	{
-		$keys = $object->register();
+		if ( ! is_callable($object))
+		{
+			$keys = $object->register();
+		}
 
 		if (is_array($keys))
 		{
@@ -40,21 +43,6 @@ class Stem {
 	{
 		$this->handlers[$key] = $object;
 	}
-
-	// public function register($className, $type)
-	// {
-	// 	if (is_array($type))
-	// 	{
-	// 		foreach ($type as $t)
-	// 		{
-	// 			$this->register($className, $t);
-	// 		}
-	// 	}
-	// 	else
-	// 	{
-	// 		$this->handlers[$type] = $className;
-	// 	}
-	// }
 
 	public function fixture($fixtureName, array $attributes)
 	{
@@ -99,25 +87,13 @@ class Stem {
 			throw new InvalidHandlerException("$type is not a valid handler");
 		}
 
-		$handlerName = $this->handlers[$type];
+		$handler = $this->handlers[$type];
 
-		if (is_object($handlerName))
+		if (is_callable($handler))
 		{
-			return $handlerName->run($modifier);
-			// return call_user_func($handlerName, $modifier);
+			return call_user_func($handler, $modifier);
 		}
 
-		if ( ! class_exists($handlerName))
-		{
-			throw new InvalidHandlerException("$handlerName is not defined");
-		}
-
-		if ( ! method_exists($handlerName, 'run'))
-		{
-			throw new InvalidHandlerException("$handlerName::run() does not exist");
-		}
-
-		$handler = new $handlerName;
 		return $handler->run($modifier);
 	}
 
