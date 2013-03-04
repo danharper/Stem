@@ -9,7 +9,6 @@ A simple fixtures library for PHP. (This is mostly a practice for me to learn wr
 Declare what a fixture should look like:
 
 ```php
-<?php
 Stem::fixture('User', array(
 	'id' => ':int'
 	'name' => '2:words',
@@ -21,7 +20,6 @@ Stem::fixture('User', array(
 Then use it:
 
 ```php
-<?php
 $fixture = Stem::attributes('User');
 
 // array(
@@ -35,7 +33,6 @@ $fixture = Stem::attributes('User');
 Or even create a real object directly from it:
 
 ```php
-<?php
 $obj = Stem::make('User');
 
 // this calls:
@@ -45,7 +42,6 @@ $obj = Stem::make('User');
 In simpler cases you may just need a couple of random words:
 
 ```php
-<?php
 Stem::run('3:words');
 ```
 
@@ -71,18 +67,12 @@ Get it from Composer with `"danharper\stem": "dev-master"`.
 Then you have two ways you can use it:
 
 ```php
-<?php
-require_once 'vendor/autoload.php';
-
 use danharper\Stem\Facades\Native\Stem as Stem;
 
 Stem::run('3:words');
 ```
 
 ```php
-<?php
-require_once 'vendor/autoload.php';
-
 use danharper\Stem\Stem as Stem;
 
 $stem = new Stem;
@@ -105,8 +95,6 @@ $stem->run('3:words');
 Provide `Stem::register()` with an object which responds to `register` with what it wishes to be known as, and when told `run` (with an optional modifier) returns something to display. Implent `danharper\Stem\Handlers\HandlerInterface` for clarity.
 
 ```php
-<?php
-
 class CustomHandler {
 	public function register() {
 		return 'custom';
@@ -131,8 +119,6 @@ Stem::run(':custom'); // something else
 Provide `Stem::register()` with a Closure behaving as the run method in the class above, and with the second argument what it wishes to be known as.
 
 ```php
-<?php
-
 Stem::register(function($modifier) {
 	if ($modifier)
 		return "something $modifier";
