@@ -2,6 +2,8 @@
 
 A simple fixtures library for PHP.
 
+[![Build Status](https://travis-ci.org/danharper/Stem.png?branch=master)](https://travis-ci.org/danharper/Stem)
+
 ## Example
 
 Declare what a fixture should look like:
