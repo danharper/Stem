@@ -12,14 +12,18 @@ Then you have two ways you can use it:
 
 ```php
 <?php
-class_alias('danharper\Stem\Facades\Native\Stem', 'Stem');
+require_once 'vendor/autoload.php';
+
+use danharper\Stem\Facades\Native\Stem as Stem;
 
 Stem::run('3:words');
 ```
 
 ```php
 <?php
-class_alias('danharper\Stem\Stem', 'Stem');
+require_once 'vendor/autoload.php';
+
+use danharper\Stem\Stem as Stem;
 
 $stem = new Stem;
 $stem->run('3:words');
