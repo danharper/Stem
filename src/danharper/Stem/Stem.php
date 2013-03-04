@@ -1,5 +1,7 @@
 <?php namespace danharper\Stem;
 
+use danharper\Stem\Exceptions\InvalidHandlerException;
+
 class Stem {
 
 	protected $fixtures = array();
@@ -94,5 +96,3 @@ class Stem {
 	}
 
 }
-
-class InvalidHandlerException extends \Exception {}

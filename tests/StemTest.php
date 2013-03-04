@@ -111,7 +111,7 @@ class StemTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @expectedException danharper\Stem\InvalidHandlerException
+	 * @expectedException danharper\Stem\Exceptions\InvalidHandlerException
 	 */
 	public function testRunThrowsExceptionForInvalidTypes()
 	{
