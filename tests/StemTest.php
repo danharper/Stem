@@ -60,7 +60,6 @@ class StemTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetHandlers()
 	{
-		// $out = $this->s->getHandlers();
 		$s = new Stem;
 		$out = $s->getHandlers();
 		$this->assertInternalType('array', $out);
