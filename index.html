@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Stem by danharper</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+
+      <header>
+        <h1>Stem</h1>
+        <p>A simple fixtures library for PHP</p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/danharper/Stem" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/danharper/Stem/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/danharper/Stem/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
+        <h1>Stem</h1>
+
+<p>A simple fixtures library for PHP. (This is mostly a practice for me to learn writing TDD with, but I think this would be useful)</p>
+
+<p><a href="https://travis-ci.org/danharper/Stem"><img src="https://travis-ci.org/danharper/Stem.png?branch=master" alt="Build Status"></a></p>
+
+<h2>Installation</h2>
+
+<p>Get it from Composer with <code>"danharper\stem": "dev-master"</code>.</p>
+
+<p>Then you have two ways you can use it:</p>
+
+<div class="highlight"><pre><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="nb">class_alias</span><span class="p">(</span><span class="s1">'danharper\Stem\Facades\Native\Stem'</span><span class="p">,</span> <span class="s1">'Stem'</span><span class="p">);</span>
+
+<span class="nx">Stem</span><span class="o">::</span><span class="na">run</span><span class="p">(</span><span class="s1">'3:words'</span><span class="p">);</span>
+</pre></div>
+
+<div class="highlight"><pre><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="nb">class_alias</span><span class="p">(</span><span class="s1">'danharper\Stem\Stem'</span><span class="p">,</span> <span class="s1">'Stem'</span><span class="p">);</span>
+
+<span class="nv">$stem</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Stem</span><span class="p">;</span>
+<span class="nv">$stem</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">(</span><span class="s1">'3:words'</span><span class="p">);</span>
+</pre></div>
+
+<h2>Example</h2>
+
+<p>Declare what a fixture should look like:</p>
+
+<div class="highlight"><pre><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="nx">Stem</span><span class="o">::</span><span class="na">fixture</span><span class="p">(</span><span class="s1">'User'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">'id'</span> <span class="o">=&gt;</span> <span class="s1">':int'</span>
+    <span class="s1">'name'</span> <span class="o">=&gt;</span> <span class="s1">'2:words'</span><span class="p">,</span>
+    <span class="s1">'email'</span> <span class="o">=&gt;</span> <span class="s1">':email'</span><span class="p">,</span>
+    <span class="s1">'bio'</span> <span class="o">=&gt;</span> <span class="s1">':string'</span><span class="p">,</span>
+<span class="p">));</span>
+</pre></div>
+
+<p>Then use it:</p>
+
+<div class="highlight"><pre><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="nv">$fixture</span> <span class="o">=</span> <span class="nx">Stem</span><span class="o">::</span><span class="na">attributes</span><span class="p">(</span><span class="s1">'User'</span><span class="p">);</span>
+
+<span class="c1">// array(</span>
+<span class="c1">//   'id' =&gt; 29,</span>
+<span class="c1">//   'name' =&gt; 'foo banana',</span>
+<span class="c1">//   'email' =&gt; 'mascot28384@bread.example.com',</span>
+<span class="c1">//   'bio' =&gt; 'dawn chat grandpa ballplayer cell Jill wing brainstorm chill Jills hunk ache'</span>
+<span class="c1">// )</span>
+</pre></div>
+
+<p>Or even create a real object directly from it:</p>
+
+<div class="highlight"><pre><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="nv">$obj</span> <span class="o">=</span> <span class="nx">Stem</span><span class="o">::</span><span class="na">make</span><span class="p">(</span><span class="s1">'User'</span><span class="p">);</span>
+
+<span class="c1">// this calls:</span>
+<span class="c1">// new User(array( ... ))</span>
+</pre></div>
+
+<p>In simpler cases you may just need a couple of random words:</p>
+
+<div class="highlight"><pre><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="nx">Stem</span><span class="o">::</span><span class="na">run</span><span class="p">(</span><span class="s1">'3:words'</span><span class="p">);</span>
+</pre></div>
+
+<h2>Provided Handlers</h2>
+
+<ul>
+<li>
+<code>:string</code> and <code>:words</code> -- prefix with a number for that many words, eg. <code>3:words</code>
+</li>
+<li>
+<code>:word</code> -- for a single word, for clarity in your code you could even write <code>1:word</code> (<code>1:words</code> would also work)</li>
+<li>
+<code>:int</code> and <code>:number</code> -- prefix with a number for a number from 0 <em>up to</em> the given number</li>
+<li><code>:email</code></li>
+</ul><h2>Registering your own Handlers</h2>
+
+<p>With a class:
+Provide <code>Stem::register()</code> with an object which when told <code>register</code> returns what it wishes to be known as, and when told <code>run</code> with an optional modifier returns something to display. Implent <code>danharper\Stem\Handlers\HandlerInterface</code> for clarity.</p>
+
+<div class="highlight"><pre><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">class</span> <span class="nc">CustomHandler</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">register</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">'custom'</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">run</span><span class="p">(</span><span class="nv">$modifier</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$modifier</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s2">"something </span><span class="si">$modifier</span><span class="s2">"</span><span class="p">;</span>
+        <span class="k">else</span>
+            <span class="k">return</span> <span class="s2">"something else"</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">Stem</span><span class="o">::</span><span class="na">register</span><span class="p">(</span><span class="k">new</span> <span class="nx">CustomHandler</span><span class="p">);</span>
+
+<span class="nx">Stem</span><span class="o">::</span><span class="na">run</span><span class="p">(</span><span class="s1">'lorem:custom'</span><span class="p">);</span> <span class="c1">// something lorem</span>
+<span class="nx">Stem</span><span class="o">::</span><span class="na">run</span><span class="p">(</span><span class="s1">':custom'</span><span class="p">);</span> <span class="c1">// something else</span>
+</pre></div>
+
+<p>With a closure:
+Or provide <code>Stem::register()</code> with a Closure behaving as the run method in the class above, and with the second argument what it wishes to be known as.</p>
+
+<div class="highlight"><pre><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="nx">Stem</span><span class="o">::</span><span class="na">register</span><span class="p">(</span><span class="k">function</span><span class="p">(</span><span class="nv">$modifier</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nv">$modifier</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">"something </span><span class="si">$modifier</span><span class="s2">"</span><span class="p">;</span>
+    <span class="k">else</span>
+        <span class="k">return</span> <span class="s2">"something else"</span><span class="p">;</span>
+<span class="p">},</span> <span class="s1">'foobar'</span><span class="p">);</span>
+
+<span class="nx">Stem</span><span class="o">::</span><span class="na">run</span><span class="p">(</span><span class="s1">'baz:foobar'</span><span class="p">);</span> <span class="c1">// something baz</span>
+<span class="nx">Stem</span><span class="o">::</span><span class="na">run</span><span class="p">(</span><span class="s1">':foobar'</span><span class="p">);</span> <span class="c1">// something else</span>
+</pre></div>
+      </section>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/danharper">danharper</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
