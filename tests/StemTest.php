@@ -12,6 +12,7 @@ class StemTest extends PHPUnit_Framework_TestCase {
 			new \danharper\Stem\Handlers\Digit,
 			new \danharper\Stem\Handlers\String,
 			new \danharper\Stem\Handlers\Word,
+			new \danharper\Stem\Handlers\Email,
 		));
 	}
 
