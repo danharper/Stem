@@ -54,15 +54,13 @@ Stem::run('3:words');
 
 ### Laravel
 
-* Add `"danharper/stem": "dev-master"` to your `composer.json` and update/install.
+* Add `"danharper/stem": "dev-master"` to your `composer.json` and update/install
 * Add `'danharper\Stem\Facades\Laravel\StemServiceProvider'` to the providers array in `app/config/app.php`
 * Add `'Stem' => 'danharper\Stem\Facades\Laravel\Stem'` to the aliases array in `app/config/app.php`
 
 Use it:
 
 ```php
-<?php
-
 Stem::run('3:words');
 ```
 
