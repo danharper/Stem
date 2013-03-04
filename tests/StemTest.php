@@ -57,48 +57,36 @@ class StemTest extends PHPUnit_Framework_TestCase {
 		$this->s->run(':foobar');
 	}
 
-	public function testRunInt()
-	{
-		$this->assertInternalType('int', $this->s->run(':int'));
-	}
+	/**
+	 * Test Handlers are correctly registered
+	 */
 
-	public function testRunIntCustomMax()
+	public function testRunNumber()
 	{
-		$this->assertLessThanOrEqual(2, $this->s->run('2:int'));
+		$this->s->run(':number');
+		$this->s->run(':int');
 	}
 
 	public function testRunDigit()
 	{
-		$made = $this->s->run(':digit');
-		$this->assertInternalType('int', $made);
-		$this->assertLessThanOrEqual(9, $made);
-		$this->assertGreaterThanOrEqual(0, $made);
+		$this->s->run(':digit');
 	}
 
-	public function testString()
+	public function testRunString()
 	{
-		$made = $this->s->run(':string');
-		$count = count(explode(' ', $made));
-		$this->assertInternalType('string', $made);
-		$this->assertGreaterThanOrEqual(2, $count);
-		$this->assertLessThanOrEqual(24, $count);
+		$this->s->run(':string');
+		$this->s->run(':words');
 	}
 
-	public function testWord()
+	public function testRunWord()
 	{
-		$made = $this->s->run(':word');
-		$this->assertInternalType('string', $made);
-		$this->assertCount(1, explode(' ', $made));
+		$this->s->run(':word');
 	}
 
-	public function testWords()
+	public function testRunEmail()
 	{
-		$made = $this->s->run('9:words');
-		$this->assertInternalType('string', $made);
-		$this->assertCount(9, explode(' ', $made));
+		$this->s->run(':email');
 	}
-
-	// public function testRegisterThrowsWhenEmptyArray()
 
 	public function testAttributes()
 	{
