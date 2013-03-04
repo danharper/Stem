@@ -7,13 +7,7 @@ class StemTest extends PHPUnit_Framework_TestCase {
 
 	public function setUp()
 	{
-		$this->s = new Stem(array(
-			new \danharper\Stem\Handlers\Number,
-			new \danharper\Stem\Handlers\Digit,
-			new \danharper\Stem\Handlers\String,
-			new \danharper\Stem\Handlers\Word,
-			new \danharper\Stem\Handlers\Email,
-		));
+		$this->s = new Stem;
 	}
 
 	public function tearDown()

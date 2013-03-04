@@ -9,10 +9,25 @@ class Stem {
 
 	public function __construct($registers = array())
 	{
+		$this->registerDefaultHandlers();
+
 		foreach ($registers as $object)
 		{
 			$this->register($object);
 		}
+	}
+
+	private function registerDefaultHandlers()
+	{
+		$defaults = array(
+			new \danharper\Stem\Handlers\Number,
+			new \danharper\Stem\Handlers\Digit,
+			new \danharper\Stem\Handlers\String,
+			new \danharper\Stem\Handlers\Word,
+			new \danharper\Stem\Handlers\Email,
+		);
+
+		foreach ($defaults as $h) $this->register($h);
 	}
 
 	public function register($object, $keys = null)
