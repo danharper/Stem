@@ -11,6 +11,7 @@
     "require": {
     },
     "require-dev": {
+        "Mockery/Mockery": "dev-master"
     },
     "autoload": {
         "psr-0": {

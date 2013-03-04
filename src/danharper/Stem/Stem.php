@@ -17,24 +17,52 @@ class Stem {
 
 		foreach ($registers as $class => $type)
 		{
-			$this->register($class, $type);
+			// $this->register($class, $type);
 		}
 	}
 
-	public function register($className, $type)
+	public function register($object)
 	{
-		if (is_array($type))
+		$keys = $object->register();
+
+		if (is_array($keys))
 		{
-			foreach ($type as $t)
-			{
-				$this->register($className, $t);
+			foreach ($keys as $key) {
+				$this->bind($key, $object);
 			}
 		}
 		else
 		{
-			$this->handlers[$type] = $className;
+			$this->bind($keys, $object);
 		}
+
+		return $keys;
 	}
+
+	public function getHandlers()
+	{
+		return $this->handlers;
+	}
+
+	protected function bind($key, $object)
+	{
+		$this->handlers[$key] = $object;
+	}
+
+	// public function register($className, $type)
+	// {
+	// 	if (is_array($type))
+	// 	{
+	// 		foreach ($type as $t)
+	// 		{
+	// 			$this->register($className, $t);
+	// 		}
+	// 	}
+	// 	else
+	// 	{
+	// 		$this->handlers[$type] = $className;
+	// 	}
+	// }
 
 	public function fixture($fixtureName, array $attributes)
 	{

@@ -1,6 +1,7 @@
 <?php
 
 use \danharper\Stem\Stem;
+use \Mockery as m;
 
 class TestFixtureClass {
 	public function __construct($data)
@@ -14,6 +15,11 @@ class StemTest extends PHPUnit_Framework_TestCase {
 	public function setUp()
 	{
 		$this->s = new Stem;
+	}
+
+	public function tearDown()
+	{
+		m::close();
 	}
 
 	public function testStart()
@@ -47,14 +53,34 @@ class StemTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(array_keys($input), array_keys($output));
 	}
 
-	public function testRegisterClosure()
+	public function testGetHandlers()
 	{
-		$this->s->register(function($input) {
-			return 'abc293';
-		}, 'foo');
-
-		$this->assertEquals('abc293', $this->s->run(':foo'));
+		$out = $this->s->getHandlers();
+		$this->assertInternalType('array', $out);
+		$this->assertCount(0, $out);
 	}
+
+	public function testRegisterWithObject()
+	{
+		$object = m::mock('something')
+			->shouldReceive('register')->once()
+			->andReturn('foo')
+			->mock();
+
+		$this->s->register($object);
+		$handlers = $this->s->getHandlers();
+
+		$this->assertEquals($object, $handlers['foo']);
+	}
+
+	// public function testRegisterClosure()
+	// {
+	// 	$this->s->register(function($input) {
+	// 		return 'abc293';
+	// 	}, 'foo');
+
+	// 	$this->assertEquals('abc293', $this->s->run(':foo'));
+	// }
 
 	public function testMake()
 	{
