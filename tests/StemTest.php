@@ -14,7 +14,14 @@ class StemTest extends PHPUnit_Framework_TestCase {
 
 	public function setUp()
 	{
-		$this->s = new Stem;
+		$registers = array(
+			new \danharper\Stem\Handlers\Number,
+			new \danharper\Stem\Handlers\Digit,
+			new \danharper\Stem\Handlers\String,
+			new \danharper\Stem\Handlers\Word,
+		);
+
+		$this->s = new Stem($registers);
 	}
 
 	public function tearDown()
@@ -55,7 +62,9 @@ class StemTest extends PHPUnit_Framework_TestCase {
 
 	public function testGetHandlers()
 	{
-		$out = $this->s->getHandlers();
+		// $out = $this->s->getHandlers();
+		$s = new Stem;
+		$out = $s->getHandlers();
 		$this->assertInternalType('array', $out);
 		$this->assertCount(0, $out);
 	}

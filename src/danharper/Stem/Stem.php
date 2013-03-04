@@ -5,19 +5,11 @@ class Stem {
 	protected $fixtures = array();
 	protected $handlers = array();
 
-	public function __construct()
+	public function __construct($registers = array())
 	{
-		$registers = array(
-			'danharper\Stem\Handlers\Number' => array('int', 'number'),
-			'danharper\Stem\Handlers\Digit' => 'digit',
-			'danharper\Stem\Handlers\String' => array('string', 'words'),
-			'danharper\Stem\Handlers\Word' => 'word',
-			'danharper\Stem\Handlers\Say' => 'say',
-		);
-
-		foreach ($registers as $class => $type)
+		foreach ($registers as $object)
 		{
-			// $this->register($class, $type);
+			$this->register($object);
 		}
 	}
 
@@ -111,7 +103,8 @@ class Stem {
 
 		if (is_object($handlerName))
 		{
-			return call_user_func($handlerName, $modifier);
+			return $handlerName->run($modifier);
+			// return call_user_func($handlerName, $modifier);
 		}
 
 		if ( ! class_exists($handlerName))
