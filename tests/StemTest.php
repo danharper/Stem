@@ -25,7 +25,31 @@ class StemTest extends PHPUnit_Framework_TestCase {
 		$this->assertInstanceOf('\danharper\Stem\Stem', $this->s);
 	}
 
-	public function testAttributesA()
+	public function testRegisterWithObject()
+	{
+		$text = 'lorem ipsum dolor';
+
+		$object = m::mock('something')
+			->shouldReceive('register')->once()
+			->andReturn('foo')
+			->shouldReceive('run')->once()->with(null)
+			->andReturn($text)
+			->mock();
+
+		$this->s->register($object);
+		$this->assertEquals($text, $this->s->run(':foo'));
+	}
+
+	public function testRegisterClosure()
+	{
+		$this->s->register(function() {
+			return 'abc293';
+		}, 'bar');
+
+		$this->assertEquals('abc293', $this->s->run(':bar'));
+	}
+
+	public function testAttributes()
 	{
 		$input = array(
 			'id' => ':int',
@@ -37,36 +61,6 @@ class StemTest extends PHPUnit_Framework_TestCase {
 		$output = $this->s->attributes('Job');
 
 		$this->assertEquals(array_keys($input), array_keys($output));
-	}
-
-	public function testGetHandlers()
-	{
-		$s = new Stem;
-		$out = $s->getHandlers();
-		$this->assertInternalType('array', $out);
-		$this->assertCount(0, $out);
-	}
-
-	public function testRegisterWithObject()
-	{
-		$object = m::mock('something')
-			->shouldReceive('register')->once()
-			->andReturn('foo')
-			->mock();
-
-		$this->s->register($object);
-		$handlers = $this->s->getHandlers();
-
-		$this->assertEquals($object, $handlers['foo']);
-	}
-
-	public function testRegisterClosure()
-	{
-		$this->s->register(function() {
-			return 'abc293';
-		}, 'foo');
-
-		$this->assertEquals('abc293', $this->s->run(':foo'));
 	}
 
 	public function testMake()

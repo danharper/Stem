@@ -36,11 +36,6 @@ class Stem {
 		return $keys;
 	}
 
-	public function getHandlers()
-	{
-		return $this->handlers;
-	}
-
 	protected function bind($key, $object)
 	{
 		$this->handlers[$key] = $object;
