@@ -51,16 +51,12 @@ class Stem {
 
 	public function attributes($fixtureName)
 	{
-		$attributes = $this->fixtures[$fixtureName];
+		$fixtureAttributes = $this->fixtures[$fixtureName];
+		$stem = $this;
 
-		$r = array();
-
-		foreach ($attributes as $attribute => $type)
-		{
-			$r[$attribute] = $this->run($type);
-		}
-
-		return $r;
+		return array_map(function($type) use ($stem) {
+			return $stem->run($type);
+		}, $fixtureAttributes);
 	}
 
 	public function make($fixtureName)
