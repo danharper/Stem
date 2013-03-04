@@ -110,6 +110,14 @@ class StemTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('string', $this->s->run('string'));
 	}
 
+	/**
+	 * @expectedException danharper\Stem\InvalidHandlerException
+	 */
+	public function testRunThrowsExceptionForInvalidTypes()
+	{
+		$this->s->run(':foobar');
+	}
+
 	public function testRunInt()
 	{
 		$this->assertInternalType('int', $this->s->run(':int'));
