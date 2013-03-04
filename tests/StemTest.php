@@ -3,13 +3,6 @@
 use \danharper\Stem\Stem;
 use \Mockery as m;
 
-class TestFixtureClass {
-	public function __construct($data)
-	{
-		foreach ($data as $key => $value) $this->$key = $value;
-	}
-}
-
 class StemTest extends PHPUnit_Framework_TestCase {
 
 	public function setUp()
@@ -84,8 +77,8 @@ class StemTest extends PHPUnit_Framework_TestCase {
 			'created' => 'xjsijr'
 		);
 
-		$this->s->fixture('TestFixtureClass', $input);
-		$x = $this->s->make('TestFixtureClass');
+		$this->s->fixture('FixtureStub', $input);
+		$x = $this->s->make('FixtureStub');
 
 		foreach (array_keys($input) as $key)
 		{
@@ -149,4 +142,11 @@ class StemTest extends PHPUnit_Framework_TestCase {
 
 	// public function testRegisterThrowsWhenEmptyArray()
 
+}
+
+class FixtureStub {
+	public function __construct($data)
+	{
+		foreach ($data as $key => $value) $this->$key = $value;
+	}
 }
