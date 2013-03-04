@@ -4,6 +4,32 @@ A simple fixtures library for PHP.
 
 [![Build Status](https://travis-ci.org/danharper/Stem.png?branch=master)](https://travis-ci.org/danharper/Stem)
 
+## Installation
+
+Get it from Composer with `"danharper\stem": "dev-master"`.
+
+Then you can either:
+
+### Use it statically
+
+```php
+<?php
+class_alias('danharper\Stem\Facades\Native\Stem', 'Stem');
+
+Stem::run('3:words');
+```
+
+### Or not
+
+```php
+<?php
+class_alias('danharper\Stem\Stem', 'Stem');
+
+$stem = new Stem;
+$stem->run('3:words');
+```
+
+
 ## Example
 
 Declare what a fixture should look like:
