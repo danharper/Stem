@@ -32,18 +32,6 @@ class StemTest extends PHPUnit_Framework_TestCase {
 		$this->assertInstanceOf('\danharper\Stem\Stem', $this->s);
 	}
 
-	public function testFacade()
-	{
-		$input = array(
-			'id' => ':int',
-		);
-
-		\danharper\Stem\Facades\Native\Stem::fixture('Job', $input);
-		$output = \danharper\Stem\Facades\Native\Stem::attributes('Job');
-
-		$this->assertEquals(array_keys($input), array_keys($output));
-	}
-
 	public function testAttributesA()
 	{
 		$input = array(
