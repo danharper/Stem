@@ -11,10 +11,7 @@ class Email extends String implements HandlerInterface
 	public function run($modifier = null)
 	{
 		$tlds = array('com', 'net', 'org');
-
-		$x = $this->getWord() . rand() . '@' . $this->getWord() . '.example.' . $tlds[array_rand($tlds)];
-		echo "\r\n$x\r\n";
-		return $x;
+		return $this->getWord() . rand() . '@' . $this->getWord() . '.example.' . $tlds[array_rand($tlds)];
 	}
 
 }
