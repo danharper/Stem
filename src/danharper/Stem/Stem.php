@@ -63,16 +63,12 @@ class Stem {
 
 	public function run($type)
 	{
-		if (preg_match('/:/', $type))
+		if ( ! preg_match('/:/', $type))
 		{
-			list($modifier, $type) = explode(':', $type);
-		}
-		else
-		{
-			// no : then just return text
-			return $type;
+			return $type; // no : then just return text
 		}
 
+		list($modifier, $type) = explode(':', $type);
 		if ( ! $modifier) $modifier = null;
 
 		if ( ! array_key_exists($type, $this->handlers))
