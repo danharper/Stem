@@ -1,5 +1,6 @@
 <?php
 
+// courtesy of https://github.com/Zizaco/factory-muff
 return array(
 'mitt',
 'that',
