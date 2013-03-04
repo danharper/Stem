@@ -1,6 +1,6 @@
 # Stem
 
-A simple fixtures library for PHP.
+A simple fixtures library for PHP. (This is mostly a practice for me to learn writing TDD with, but I think this would be useful)
 
 [![Build Status](https://travis-ci.org/danharper/Stem.png?branch=master)](https://travis-ci.org/danharper/Stem)
 
@@ -8,9 +8,7 @@ A simple fixtures library for PHP.
 
 Get it from Composer with `"danharper\stem": "dev-master"`.
 
-Then you can either:
-
-### Use it statically
+Then you have two ways you can use it:
 
 ```php
 <?php
@@ -18,8 +16,6 @@ class_alias('danharper\Stem\Facades\Native\Stem', 'Stem');
 
 Stem::run('3:words');
 ```
-
-### Or not
 
 ```php
 <?php
